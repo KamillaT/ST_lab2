@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExportConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Archetype - ST_lab2</a> &gt; <a href="index.source.html" class="el_package">app</a> &gt; <span class="el_source">ExportConfig.java</span></div><h1>ExportConfig.java</h1><pre class="source lang-java linenums">package app;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ExportConfig {
+
+    private final String functionName;
+    private final double start;
+    private final double end;
+    private final double step;
+    private final double eps;
+    private final String outputPath;
+    private final String delimiter;
+    private final boolean helpRequested;
+
+<span class="fc" id="L17">    private ExportConfig(String functionName,</span>
+                         double start,
+                         double end,
+                         double step,
+                         double eps,
+                         String outputPath,
+                         String delimiter,
+                         boolean helpRequested) {
+<span class="fc" id="L25">        this.functionName = functionName;</span>
+<span class="fc" id="L26">        this.start = start;</span>
+<span class="fc" id="L27">        this.end = end;</span>
+<span class="fc" id="L28">        this.step = step;</span>
+<span class="fc" id="L29">        this.eps = eps;</span>
+<span class="fc" id="L30">        this.outputPath = outputPath;</span>
+<span class="fc" id="L31">        this.delimiter = delimiter;</span>
+<span class="fc" id="L32">        this.helpRequested = helpRequested;</span>
+<span class="fc" id="L33">    }</span>
+
+    public static ExportConfig fromArgs(String[] args) {
+<span class="fc bfc" id="L36" title="All 4 branches covered.">        if (args.length == 1 &amp;&amp; &quot;--help&quot;.equals(args[0])) {</span>
+<span class="fc" id="L37">            return new ExportConfig(&quot;system&quot;, -5.0, 5.0, 0.1, 1e-6, &quot;result.csv&quot;, &quot;,&quot;, true);</span>
+        }
+
+<span class="fc" id="L40">        Map&lt;String, String&gt; options = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        for (int i = 0; i &lt; args.length; i++) {</span>
+<span class="fc" id="L42">            String arg = args[i];</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">            if (!arg.startsWith(&quot;--&quot;)) {</span>
+<span class="fc" id="L44">                throw new IllegalArgumentException(&quot;Arguments must use the format --key value&quot;);</span>
+            }
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            if (i + 1 &gt;= args.length) {</span>
+<span class="fc" id="L47">                throw new IllegalArgumentException(&quot;Missing value for argument: &quot; + arg);</span>
+            }
+<span class="fc" id="L49">            options.put(arg.substring(2), args[++i]);</span>
+        }
+
+<span class="fc" id="L52">        double start = parseDouble(options.getOrDefault(&quot;start&quot;, &quot;-5.0&quot;), &quot;start&quot;);</span>
+<span class="fc" id="L53">        double end = parseDouble(options.getOrDefault(&quot;end&quot;, &quot;5.0&quot;), &quot;end&quot;);</span>
+<span class="fc" id="L54">        double step = parseDouble(options.getOrDefault(&quot;step&quot;, &quot;0.1&quot;), &quot;step&quot;);</span>
+<span class="fc" id="L55">        double eps = parseDouble(options.getOrDefault(&quot;eps&quot;, &quot;1e-6&quot;), &quot;eps&quot;);</span>
+
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (step &lt;= 0) {</span>
+<span class="fc" id="L58">            throw new IllegalArgumentException(&quot;Step must be positive&quot;);</span>
+        }
+
+<span class="fc" id="L61">        return new ExportConfig(</span>
+<span class="fc" id="L62">                options.getOrDefault(&quot;function&quot;, &quot;system&quot;),</span>
+<span class="fc" id="L63">                start,</span>
+<span class="fc" id="L64">                end,</span>
+<span class="fc" id="L65">                step,</span>
+<span class="fc" id="L66">                eps,</span>
+<span class="fc" id="L67">                options.getOrDefault(&quot;out&quot;, &quot;result.csv&quot;),</span>
+<span class="fc" id="L68">                options.getOrDefault(&quot;delimiter&quot;, &quot;,&quot;),</span>
+<span class="fc" id="L69">                false</span>
+        );
+    }
+
+    public static String usage() {
+<span class="fc" id="L74">        return &quot;&quot;&quot;</span>
+                Usage:
+                  java -cp target/classes Main [--function name] [--start value] [--end value]
+                                              [--step value] [--eps value] [--out path]
+                                              [--delimiter value]
+
+                Example:
+                  java -cp target/classes Main --function system --start -5 --end 5 --step 0.1 --eps 1e-6 --out result.csv --delimiter ,
+                &quot;&quot;&quot;;
+    }
+
+    private static double parseDouble(String value, String fieldName) {
+        try {
+<span class="fc" id="L87">            return Double.parseDouble(value);</span>
+<span class="fc" id="L88">        } catch (NumberFormatException e) {</span>
+<span class="fc" id="L89">            throw new IllegalArgumentException(&quot;Invalid numeric value for &quot; + fieldName + &quot;: &quot; + value, e);</span>
+        }
+    }
+
+    public String functionName() {
+<span class="fc" id="L94">        return functionName;</span>
+    }
+
+    public double start() {
+<span class="fc" id="L98">        return start;</span>
+    }
+
+    public double end() {
+<span class="fc" id="L102">        return end;</span>
+    }
+
+    public double step() {
+<span class="fc" id="L106">        return step;</span>
+    }
+
+    public double eps() {
+<span class="fc" id="L110">        return eps;</span>
+    }
+
+    public String outputPath() {
+<span class="fc" id="L114">        return outputPath;</span>
+    }
+
+    public String delimiter() {
+<span class="fc" id="L118">        return delimiter;</span>
+    }
+
+    public boolean isHelpRequested() {
+<span class="fc" id="L122">        return helpRequested;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

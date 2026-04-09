@@ -1,0 +1,15 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Archetype - ST_lab2,app,FunctionRegistry,0,123,0,2,0,25,0,3,0,2
+Archetype - ST_lab2,app,ExportConfig,0,199,0,12,0,47,0,18,0,12
+Archetype - ST_lab2,default,Main,0,76,0,4,0,29,0,4,0,2
+Archetype - ST_lab2,functions.system,SystemFunction,0,182,0,26,0,37,0,17,0,4
+Archetype - ST_lab2,functions.log,Log5,0,43,0,8,0,11,0,6,0,2
+Archetype - ST_lab2,functions.log,Ln,0,60,0,6,0,15,0,5,0,2
+Archetype - ST_lab2,functions.log,Log10,0,43,0,8,0,11,0,6,0,2
+Archetype - ST_lab2,functions,AbstractFunction,0,13,0,2,0,4,0,3,0,2
+Archetype - ST_lab2,util,CsvExporter,0,51,0,4,0,9,0,4,0,2
+Archetype - ST_lab2,functions.trig,Sin,0,72,0,6,0,17,0,6,0,3
+Archetype - ST_lab2,functions.trig,Csc,0,29,0,4,0,8,0,4,0,2
+Archetype - ST_lab2,functions.trig,Sec,0,29,0,4,0,8,0,4,0,2
+Archetype - ST_lab2,functions.trig,Cos,0,72,0,6,0,17,0,6,0,3
+Archetype - ST_lab2,functions.trig,Tan,0,41,0,6,0,10,0,5,0,2

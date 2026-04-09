@@ -1,0 +1,15 @@
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/Main.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/app/ExportConfig.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/app/FunctionRegistry.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/AbstractFunction.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/Function.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/log/Ln.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/log/Log10.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/log/Log5.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/system/SystemFunction.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/trig/Cos.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/trig/Csc.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/trig/Sec.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/trig/Sin.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/functions/trig/Tan.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/main/java/util/CsvExporter.java

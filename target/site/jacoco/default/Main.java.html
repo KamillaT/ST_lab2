@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Archetype - ST_lab2</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">import app.ExportConfig;
+import app.FunctionRegistry;
+import functions.Function;
+import util.CsvExporter;
+
+import java.util.Map;
+
+<span class="fc" id="L8">public class Main {</span>
+
+    public static void main(String[] args) {
+        ExportConfig config;
+        try {
+<span class="fc" id="L13">            config = ExportConfig.fromArgs(args);</span>
+<span class="fc" id="L14">        } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L15">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L16">            System.out.println(ExportConfig.usage());</span>
+<span class="fc" id="L17">            return;</span>
+        }
+
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        if (config.isHelpRequested()) {</span>
+<span class="fc" id="L21">            System.out.println(ExportConfig.usage());</span>
+<span class="fc" id="L22">            System.out.println(&quot;Available functions: &quot; + FunctionRegistry.availableFunctionNames());</span>
+<span class="fc" id="L23">            return;</span>
+        }
+
+<span class="fc" id="L26">        Map&lt;String, Function&gt; functions = FunctionRegistry.createFunctions();</span>
+<span class="fc" id="L27">        Function targetFunction = functions.get(config.functionName());</span>
+
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (targetFunction == null) {</span>
+<span class="fc" id="L30">            System.err.println(&quot;Unknown function: &quot; + config.functionName());</span>
+<span class="fc" id="L31">            System.out.println(&quot;Available functions: &quot; + FunctionRegistry.availableFunctionNames());</span>
+<span class="fc" id="L32">            return;</span>
+        }
+
+<span class="fc" id="L35">        CsvExporter exporter = new CsvExporter();</span>
+
+        try {
+<span class="fc" id="L38">            exporter.export(</span>
+<span class="fc" id="L39">                    targetFunction,</span>
+<span class="fc" id="L40">                    config.start(),</span>
+<span class="fc" id="L41">                    config.end(),</span>
+<span class="fc" id="L42">                    config.step(),</span>
+<span class="fc" id="L43">                    config.eps(),</span>
+<span class="fc" id="L44">                    config.outputPath(),</span>
+<span class="fc" id="L45">                    config.delimiter()</span>
+            );
+<span class="fc" id="L47">            System.out.println(&quot;CSV file generated: &quot; + config.outputPath());</span>
+<span class="fc" id="L48">        } catch (Exception e) {</span>
+<span class="fc" id="L49">            e.printStackTrace();</span>
+        }
+<span class="fc" id="L51">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

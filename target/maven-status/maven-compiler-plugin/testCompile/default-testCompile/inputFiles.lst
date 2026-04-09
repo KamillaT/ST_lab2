@@ -1,0 +1,16 @@
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/MainTest.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/app/ExportConfigTest.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/app/FunctionRegistryTest.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/functions/FunctionModulesTest.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/functions/system/SystemFunctionIntegrationTest.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/ExpectedSystemCalculator.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/TabulatedFunctionStub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/stubs/CosStub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/stubs/CscStub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/stubs/LnStub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/stubs/Log10Stub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/stubs/Log5Stub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/stubs/SecStub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/stubs/SinStub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/support/stubs/TanStub.java
+/Users/armangokka/Projects/ITMO/testing/lab2/src/test/java/util/CsvExporterTest.java

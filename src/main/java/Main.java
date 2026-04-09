@@ -1,40 +1,50 @@
+import app.ExportConfig;
+import app.FunctionRegistry;
 import functions.Function;
-import functions.log.Ln;
-import functions.log.Log10;
-import functions.log.Log5;
-import functions.system.SystemFunction;
-import functions.trig.Cos;
-import functions.trig.Csc;
-import functions.trig.Sec;
-import functions.trig.Sin;
-import functions.trig.Tan;
 import util.CsvExporter;
+
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-        double eps = 1e-6;
+        ExportConfig config;
+        try {
+            config = ExportConfig.fromArgs(args);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            System.out.println(ExportConfig.usage());
+            return;
+        }
 
-        Function sin = new Sin();
-        Function cos = new Cos();
-        Function tan = new Tan(sin, cos);
-        Function sec = new Sec(cos);
-        Function csc = new Csc(sin);
+        if (config.isHelpRequested()) {
+            System.out.println(ExportConfig.usage());
+            System.out.println("Available functions: " + FunctionRegistry.availableFunctionNames());
+            return;
+        }
 
-        Function ln = new Ln();
-        Function log5 = new Log5(ln);
-        Function log10 = new Log10(ln);
+        Map<String, Function> functions = FunctionRegistry.createFunctions();
+        Function targetFunction = functions.get(config.functionName());
 
-        Function system = new SystemFunction(
-                sin, cos, tan, sec, csc,
-                ln, log5, log10
-        );
+        if (targetFunction == null) {
+            System.err.println("Unknown function: " + config.functionName());
+            System.out.println("Available functions: " + FunctionRegistry.availableFunctionNames());
+            return;
+        }
 
         CsvExporter exporter = new CsvExporter();
 
         try {
-            exporter.export(system, -5.0, 5.0, 0.1, eps, "result.csv", ",");
-            System.out.println("CSV file generated: result.csv");
+            exporter.export(
+                    targetFunction,
+                    config.start(),
+                    config.end(),
+                    config.step(),
+                    config.eps(),
+                    config.outputPath(),
+                    config.delimiter()
+            );
+            System.out.println("CSV file generated: " + config.outputPath());
         } catch (Exception e) {
             e.printStackTrace();
         }

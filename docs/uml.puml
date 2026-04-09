@@ -1,0 +1,52 @@
+@startuml
+interface Function {
+  +calculate(x: double, eps: double): double
+}
+
+abstract class AbstractFunction {
+  #validateEps(eps: double): void
+}
+
+class Sin
+class Cos
+class Tan
+class Sec
+class Csc
+class Ln
+class Log5
+class Log10
+class SystemFunction
+class CsvExporter {
+  +export(function: Function, start: double, end: double, step: double, eps: double, filePath: String, delimiter: String): void
+}
+class ExportConfig
+class FunctionRegistry
+
+Function <|.. AbstractFunction
+AbstractFunction <|-- Sin
+AbstractFunction <|-- Cos
+AbstractFunction <|-- Tan
+AbstractFunction <|-- Sec
+AbstractFunction <|-- Csc
+AbstractFunction <|-- Ln
+AbstractFunction <|-- Log5
+AbstractFunction <|-- Log10
+AbstractFunction <|-- SystemFunction
+
+Tan --> Function : sin
+Tan --> Function : cos
+Sec --> Function : cos
+Csc --> Function : sin
+Log5 --> Function : ln
+Log10 --> Function : ln
+SystemFunction --> Function : sin
+SystemFunction --> Function : cos
+SystemFunction --> Function : tan
+SystemFunction --> Function : sec
+SystemFunction --> Function : csc
+SystemFunction --> Function : ln
+SystemFunction --> Function : log5
+SystemFunction --> Function : log10
+FunctionRegistry ..> Function
+CsvExporter ..> Function
+@enduml
