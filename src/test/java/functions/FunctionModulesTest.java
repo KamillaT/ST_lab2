@@ -32,18 +32,18 @@ class FunctionModulesTest {
 
     @Test
     void cosNormalizesPositiveAnglesGreaterThanPi() {
-        assertEquals(Math.cos(4.0), new Cos().calculate(4.0, EPS), ASSERT_EPS);
+        assertEquals(Math.cos(4.0), new Cos(new Sin()).calculate(4.0, EPS), ASSERT_EPS);
     }
 
     @Test
     void cosNormalizesNegativeAnglesLessThanMinusPi() {
-        assertEquals(Math.cos(-4.0), new Cos().calculate(-4.0, EPS), ASSERT_EPS);
+        assertEquals(Math.cos(-4.0), new Cos(new Sin()).calculate(-4.0, EPS), ASSERT_EPS);
     }
 
     @Test
     void functionsRejectNonPositiveEpsilon() {
         assertThrows(IllegalArgumentException.class, () -> new Sin().calculate(1.0, 0.0));
-        assertThrows(IllegalArgumentException.class, () -> new Cos().calculate(1.0, -1.0));
+        assertThrows(IllegalArgumentException.class, () -> new Cos(new Sin()).calculate(1.0, -1.0));
         assertThrows(IllegalArgumentException.class, () -> new Ln().calculate(1.0, 0.0));
     }
 

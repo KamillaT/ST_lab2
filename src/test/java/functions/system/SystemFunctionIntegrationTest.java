@@ -64,9 +64,14 @@ class SystemFunctionIntegrationTest {
 
     @Test
     void integratesRealCosIntoTrigBranch() {
+        Function sin = new SinStub(new double[][]{
+                {TRIG_X, Math.sin(TRIG_X)},
+                {TRIG_X + Math.PI / 2.0, Math.sin(TRIG_X + Math.PI / 2.0)}
+        });
+
         SystemFunction system = new SystemFunction(
-                SinStub.at(TRIG_X, Math.sin(TRIG_X)),
-                new Cos(),
+                sin,
+                new Cos(sin),
                 TanStub.at(TRIG_X, Math.tan(TRIG_X)),
                 SecStub.at(TRIG_X, 1.0 / Math.cos(TRIG_X)),
                 CscStub.at(TRIG_X, 1.0 / Math.sin(TRIG_X)),
@@ -81,7 +86,7 @@ class SystemFunctionIntegrationTest {
     @Test
     void integratesRealTanIntoTrigBranch() {
         Function sin = new Sin();
-        Function cos = new Cos();
+        Function cos = new Cos(sin);
         SystemFunction system = new SystemFunction(
                 sin,
                 cos,
@@ -99,7 +104,7 @@ class SystemFunctionIntegrationTest {
     @Test
     void integratesRealSecIntoTrigBranch() {
         Function sin = new Sin();
-        Function cos = new Cos();
+        Function cos = new Cos(sin);
         SystemFunction system = new SystemFunction(
                 sin,
                 cos,
@@ -119,7 +124,7 @@ class SystemFunctionIntegrationTest {
         Function sin = new Sin();
         SystemFunction system = new SystemFunction(
                 sin,
-                new Cos(),
+                new Cos(sin),
                 TanStub.at(TRIG_X, Math.tan(TRIG_X)),
                 SecStub.at(TRIG_X, 1.0 / Math.cos(TRIG_X)),
                 new Csc(sin),
@@ -133,15 +138,19 @@ class SystemFunctionIntegrationTest {
 
     @Test
     void returnsNaNAtTrigBranchDiscontinuity() {
+        Function sin = new Sin();
+        Function cos = new Cos(sin);
+        Function ln = new Ln();
+
         Function system = new SystemFunction(
-                new Sin(),
-                new Cos(),
-                new Tan(new Sin(), new Cos()),
-                new Sec(new Cos()),
-                new Csc(new Sin()),
-                new Ln(),
-                new Log5(new Ln()),
-                new Log10(new Ln())
+                sin,
+                cos,
+                new Tan(sin, cos),
+                new Sec(cos),
+                new Csc(sin),
+                ln,
+                new Log5(ln),
+                new Log10(ln)
         );
 
         assertTrue(Double.isNaN(system.calculate(0.0, EPS)));
@@ -216,13 +225,16 @@ class SystemFunctionIntegrationTest {
 
     @Test
     void returnsNaNAtLogBranchDiscontinuity() {
+        Function sin = new Sin();
+        Function cos = new Cos(sin);
         Function ln = new Ln();
+
         Function system = new SystemFunction(
-                new Sin(),
-                new Cos(),
-                new Tan(new Sin(), new Cos()),
-                new Sec(new Cos()),
-                new Csc(new Sin()),
+                sin,
+                cos,
+                new Tan(sin, cos),
+                new Sec(cos),
+                new Csc(sin),
                 ln,
                 new Log5(ln),
                 new Log10(ln)

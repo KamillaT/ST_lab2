@@ -24,7 +24,7 @@ public final class FunctionRegistry {
 <span class="fc" id="L24">        Map&lt;String, Function&gt; functions = new LinkedHashMap&lt;&gt;();</span>
 
 <span class="fc" id="L26">        Function sin = new Sin();</span>
-<span class="fc" id="L27">        Function cos = new Cos();</span>
+<span class="fc" id="L27">        Function cos = new Cos(sin);</span>
 <span class="fc" id="L28">        Function tan = new Tan(sin, cos);</span>
 <span class="fc" id="L29">        Function sec = new Sec(cos);</span>
 <span class="fc" id="L30">        Function csc = new Csc(sin);</span>
@@ -42,8 +42,8 @@ public final class FunctionRegistry {
 <span class="fc" id="L42">        functions.put(&quot;log5&quot;, log5);</span>
 <span class="fc" id="L43">        functions.put(&quot;log10&quot;, log10);</span>
 <span class="fc" id="L44">        functions.put(&quot;system&quot;, new SystemFunction(</span>
-<span class="fc" id="L45">                sin, cos, tan, sec, csc,</span>
-<span class="fc" id="L46">                ln, log5, log10</span>
+                sin, cos, tan, sec, csc,
+                ln, log5, log10
         ));
 
 <span class="fc" id="L49">        return functions;</span>
@@ -53,7 +53,7 @@ public final class FunctionRegistry {
 <span class="fc" id="L53">        StringJoiner joiner = new StringJoiner(&quot;, &quot;);</span>
 <span class="fc bfc" id="L54" title="All 2 branches covered.">        for (String name : createFunctions().keySet()) {</span>
 <span class="fc" id="L55">            joiner.add(name);</span>
-        }
+<span class="fc" id="L56">        }</span>
 <span class="fc" id="L57">        return joiner.toString();</span>
     }
 }

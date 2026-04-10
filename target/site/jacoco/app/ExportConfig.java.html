@@ -14,14 +14,14 @@ public class ExportConfig {
     private final String delimiter;
     private final boolean helpRequested;
 
-<span class="fc" id="L17">    private ExportConfig(String functionName,</span>
+    private ExportConfig(String functionName,
                          double start,
                          double end,
                          double step,
                          double eps,
                          String outputPath,
                          String delimiter,
-                         boolean helpRequested) {
+<span class="fc" id="L24">                         boolean helpRequested) {</span>
 <span class="fc" id="L25">        this.functionName = functionName;</span>
 <span class="fc" id="L26">        this.start = start;</span>
 <span class="fc" id="L27">        this.end = end;</span>
@@ -60,13 +60,13 @@ public class ExportConfig {
 
 <span class="fc" id="L61">        return new ExportConfig(</span>
 <span class="fc" id="L62">                options.getOrDefault(&quot;function&quot;, &quot;system&quot;),</span>
-<span class="fc" id="L63">                start,</span>
-<span class="fc" id="L64">                end,</span>
-<span class="fc" id="L65">                step,</span>
-<span class="fc" id="L66">                eps,</span>
+                start,
+                end,
+                step,
+                eps,
 <span class="fc" id="L67">                options.getOrDefault(&quot;out&quot;, &quot;result.csv&quot;),</span>
 <span class="fc" id="L68">                options.getOrDefault(&quot;delimiter&quot;, &quot;,&quot;),</span>
-<span class="fc" id="L69">                false</span>
+                false
         );
     }
 

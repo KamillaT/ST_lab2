@@ -24,7 +24,7 @@ public final class FunctionRegistry {
         Map<String, Function> functions = new LinkedHashMap<>();
 
         Function sin = new Sin();
-        Function cos = new Cos();
+        Function cos = new Cos(sin);
         Function tan = new Tan(sin, cos);
         Function sec = new Sec(cos);
         Function csc = new Csc(sin);
